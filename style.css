@@ -1,0 +1,317 @@
+:root {
+  --pink-100: #fff0f6;
+  --pink-200: #ffe0ed;
+  --pink-300: #ffcce0;
+  --pink-400: #ffb6d4;
+  --pink-500: #ff8ec4;
+  --mint: #d4f5e9;
+  --lavender: #e8dff5;
+  --cream: #fffbf7;
+  --peach: #ffe8d6;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--pink-100) 30%, var(--peach) 60%, var(--pink-200) 100%);
+  font-family: 'Comic Sans MS', 'Segoe Print', cursive;
+  user-select: none;
+}
+
+/* ---- Layers ---- */
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---- Background Blobs ---- */
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.25;
+  filter: blur(60px);
+}
+.blob1 {
+  width: 600px; height: 600px;
+  background: var(--pink-400);
+  top: -150px; left: -100px;
+}
+.blob2 {
+  width: 500px; height: 500px;
+  background: var(--mint);
+  bottom: -100px; right: -80px;
+}
+.blob3 {
+  width: 400px; height: 400px;
+  background: var(--lavender);
+  top: 40%; left: 30%;
+}
+
+/* ---- Decorative Elements ---- */
+.deco {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+}
+.flower {
+  filter: drop-shadow(0 3px 6px rgba(255,150,180,0.3));
+}
+.heart {
+  font-size: 1.8rem;
+  opacity: 0.55;
+  filter: drop-shadow(0 2px 4px rgba(255,100,150,0.3));
+}
+.sparkle {
+  font-size: 1.2rem;
+  opacity: 0.45;
+}
+.bunny {
+  font-size: 2rem;
+  opacity: 0.6;
+  filter: drop-shadow(0 3px 6px rgba(255,150,180,0.25));
+}
+.seal {
+  font-size: 2.2rem;
+  opacity: 0.55;
+  filter: drop-shadow(0 3px 6px rgba(200,200,255,0.25));
+}
+.cloud {
+  font-size: 2.8rem;
+  opacity: 0.25;
+}
+.moon {
+  font-size: 2rem;
+  opacity: 0.3;
+}
+
+/* ---- Love Scribbles ---- */
+.scribbles-layer {
+  z-index: 2;
+}
+.scribble {
+  position: absolute;
+  font-family: 'Segoe Print', 'Comic Sans MS', cursive;
+  font-size: 1.1rem;
+  color: #e8789a;
+  opacity: 0.35;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  text-shadow: 0 1px 3px rgba(255,255,255,0.6);
+  will-change: transform, opacity;
+}
+.sc-1 { top: 22%; left: 8%; transform: rotate(-8deg); font-size: 1.3rem; }
+.sc-2 { top: 78%; right: 10%; transform: rotate(12deg); font-size: 1.5rem; }
+.sc-3 { top: 12%; right: 12%; transform: rotate(-4deg); font-size: 1rem; }
+.sc-4 { bottom: 12%; left: 20%; transform: rotate(6deg); font-size: 1.2rem; }
+.sc-5 { top: 6%; left: 40%; transform: rotate(-12deg); font-size: 1.4rem; }
+.sc-6 { top: 42%; left: 4%; transform: rotate(15deg); font-size: 1rem; }
+.sc-7 { top: 55%; right: 8%; transform: rotate(-7deg); font-size: 1.1rem; }
+.sc-8 { top: 32%; right: 18%; transform: rotate(20deg); font-size: 2.5rem; }
+
+/* ---- Polaroid Base ---- */
+.polaroid {
+  position: absolute;
+  width: 440px;
+  height: 580px;
+  background-size: cover;
+  background-position: center;
+  background-color: #fff;
+  border: 16px solid #fff;
+  border-bottom-width: 76px;
+  border-radius: 12px;
+  box-shadow:
+    0 16px 56px rgba(255,150,180,0.35),
+    0 4px 16px rgba(0,0,0,0.08);
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+
+.polaroid::before {
+  content: '♥';
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  font-size: 1.4rem;
+  color: #ff8ec4;
+  opacity: 0.8;
+  filter: drop-shadow(0 2px 4px rgba(255,100,150,0.3));
+  z-index: 2;
+  pointer-events: none;
+}
+
+.polaroid::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.2) 0%,
+    transparent 50%,
+    rgba(255,200,220,0.1) 100%
+  );
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.caption {
+  position: absolute;
+  bottom: -56px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #d4728a;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+}
+
+/* ---- Orbit / Flower Container ---- */
+.orbit-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.orbit-img {
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  border: 14px solid #fff;
+  border-bottom-width: 58px;
+  border-radius: 10px;
+  margin-left: -150px;
+  margin-top: -200px;
+}
+
+/* decoration state managed via GSAP */
+
+/* ---- Stickers ---- */
+.stickers {
+  z-index: 5;
+}
+.sticker {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.1));
+  will-change: transform, opacity;
+}
+.st-1 { top: 18%; left: 12%; }
+.st-2 { top: 22%; right: 14%; }
+.st-3 { top: 60%; left: 8%; }
+.st-4 { bottom: 25%; right: 10%; }
+.st-5 { bottom: 15%; left: 28%; }
+.st-6 { top: 45%; right: 6%; }
+.st-7 { top: 35%; left: 20%; }
+.st-8 { bottom: 30%; left: 38%; }
+
+/* ---- Heart Ring ---- */
+.heart-ring-layer {
+  z-index: 8;
+  pointer-events: none;
+}
+.heart-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+.ring-heart {
+  position: absolute;
+  font-size: 2rem;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 14px rgba(255,100,150,0.6));
+}
+
+/* ---- Sparkle Burst ---- */
+.sparkle-burst-layer {
+  z-index: 10;
+  pointer-events: none;
+}
+.sparkle-burst {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.sparkle-burst span {
+  font-size: 2.2rem;
+  display: inline-block;
+  filter: drop-shadow(0 0 10px rgba(255,150,200,0.6));
+}
+
+/* ---- Lyrics ---- */
+.lyrics {
+  z-index: 3;
+}
+.lyric-line {
+  font-size: 2.5rem;
+  color: #d4728a;
+  text-shadow: 0 2px 12px rgba(255,150,180,0.4);
+}
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 1100px) {
+  .polaroid {
+    width: 320px;
+    height: 420px;
+    border-width: 14px;
+    border-bottom-width: 60px;
+  }
+  .orbit-img {
+    width: 220px;
+    height: 300px;
+    border-width: 12px;
+    border-bottom-width: 46px;
+    margin-left: -110px;
+    margin-top: -150px;
+  }
+  .caption { font-size: 1rem; bottom: -44px; }
+  .sticker { font-size: 1.5rem; }
+  .scribble { font-size: 0.9rem; }
+  .sc-1 { font-size: 1rem; }
+  .sc-2 { font-size: 1.1rem; }
+  .sc-5 { font-size: 1.1rem; }
+  .sc-8 { font-size: 2rem; }
+}
+@media (max-width: 600px) {
+  .polaroid {
+    width: 240px;
+    height: 320px;
+    border-width: 12px;
+    border-bottom-width: 48px;
+  }
+  .orbit-img {
+    width: 170px;
+    height: 230px;
+    border-width: 10px;
+    border-bottom-width: 38px;
+    margin-left: -85px;
+    margin-top: -115px;
+  }
+  .caption { font-size: 0.8rem; bottom: -36px; }
+  .scribble { font-size: 0.75rem; }
+  .sc-1 { font-size: 0.85rem; }
+  .sc-2 { font-size: 0.9rem; }
+  .sc-5 { font-size: 0.9rem; }
+  .sc-8 { font-size: 1.6rem; }
+}
