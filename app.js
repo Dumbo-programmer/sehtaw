@@ -1,7 +1,5 @@
 Splitting();
 
-const audio = document.getElementById('bg-audio');
-
 // --- Background deco animations ---
 
 gsap.to('.flower', {
@@ -84,41 +82,61 @@ gsap.to('.moon', {
   ease: 'sine.inOut'
 });
 
-// --- Position heart ring in a circle ---
+// --- Responsive sizing ---
+let viewMin, HEART_RADIUS, PETAL_R, DECO_R, S, M, L;
+let started = false;
 
-const HEART_RADIUS = 420;
-const ringHearts = document.querySelectorAll('.ring-heart');
-ringHearts.forEach((heart, i) => {
-  const angle = (i / ringHearts.length) * 360;
-  const rad = (angle * Math.PI) / 180;
-  gsap.set(heart, {
-    x: Math.cos(rad) * HEART_RADIUS,
-    y: Math.sin(rad) * HEART_RADIUS,
-    rotation: 0
+function computeLayout() {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  viewMin = Math.min(vw, vh);
+
+  HEART_RADIUS = Math.min(500, Math.max(140, viewMin * 0.38));
+  PETAL_R = Math.min(400, Math.max(110, viewMin * 0.30));
+  DECO_R = Math.min(200, Math.max(55, viewMin * 0.14));
+  S = viewMin * 0.50;
+  M = viewMin * 0.35;
+  L = viewMin * 0.65;
+
+  const ringHearts = document.querySelectorAll('.ring-heart');
+  ringHearts.forEach((heart, i) => {
+    const angle = (i / ringHearts.length) * 360;
+    const rad = (angle * Math.PI) / 180;
+    gsap.set(heart, {
+      x: Math.cos(rad) * HEART_RADIUS,
+      y: Math.sin(rad) * HEART_RADIUS,
+      rotation: 0
+    });
   });
+}
+computeLayout();
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  if (started) return;
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(computeLayout, 150);
 });
 
 // --- Flower arrangement ---
 
-const PETAL_R = 330;
-const DECO_R = 160;
-
 const FLOWER = [
-  { sel: '.img-1', angle: 36,  radius: DECO_R, type: 'deco' },
-  { sel: '.img-2', angle: 0,   radius: PETAL_R, type: 'petal' },
-  { sel: '.img-3', angle: 72,  radius: PETAL_R, type: 'petal' },
-  { sel: '.img-4', angle: 144, radius: PETAL_R, type: 'petal' },
-  { sel: '.img-5', angle: 216, radius: PETAL_R, type: 'petal' },
-  { sel: '.img-6', angle: 288, radius: PETAL_R, type: 'petal' },
-  { sel: '.img-7', angle: 180, radius: DECO_R, type: 'deco' },
+  { sel: '.img-1', angle: 36,  type: 'deco' },
+  { sel: '.img-2', angle: 0,   type: 'petal' },
+  { sel: '.img-3', angle: 72,  type: 'petal' },
+  { sel: '.img-4', angle: 144, type: 'petal' },
+  { sel: '.img-5', angle: 216, type: 'petal' },
+  { sel: '.img-6', angle: 288, type: 'petal' },
+  { sel: '.img-7', angle: 180, type: 'deco' },
 ];
 
 const flowerPositions = {};
-FLOWER.forEach(({ sel, angle, radius }) => {
+FLOWER.forEach(({ sel, angle, type }) => {
   const rad = (angle * Math.PI) / 180;
+  const r = type === 'petal' ? PETAL_R : DECO_R;
   flowerPositions[sel] = {
-    x: Math.cos(rad) * radius,
-    y: Math.sin(rad) * radius,
+    x: Math.cos(rad) * r,
+    y: Math.sin(rad) * r,
   };
 });
 
@@ -219,31 +237,31 @@ tl.to('.orbit-img', {
 
 // Petals drift away — starts as rotation winds down
 tl.to('.img-2', {
-  x: -600, y: -380, rotation: -55, opacity: 0, scale: 0.3,
+  x: -S*1.1, y: -M, rotation: -55, opacity: 0, scale: 0.3,
   duration: 1.2,
   ease: 'power3.in'
 }, 20);
 
 tl.to('.img-3', {
-  x: 600, y: -380, rotation: 55, opacity: 0, scale: 0.3,
+  x: S*1.1, y: -M, rotation: 55, opacity: 0, scale: 0.3,
   duration: 1.2,
   ease: 'power3.in'
 }, 20.15);
 
 tl.to('.img-4', {
-  x: -550, y: 480, rotation: 40, opacity: 0, scale: 0.3,
+  x: -S, y: M*1.3, rotation: 40, opacity: 0, scale: 0.3,
   duration: 1.2,
   ease: 'power3.in'
 }, 20.3);
 
 tl.to('.img-5', {
-  x: 550, y: 480, rotation: -40, opacity: 0, scale: 0.3,
+  x: S, y: M*1.3, rotation: -40, opacity: 0, scale: 0.3,
   duration: 1.2,
   ease: 'power3.in'
 }, 20.45);
 
 tl.to('.img-6', {
-  x: 650, y: 0, rotation: 180, opacity: 0, scale: 0.3,
+  x: L, y: 0, rotation: 180, opacity: 0, scale: 0.3,
   duration: 1.2,
   ease: 'power3.in'
 }, 20.6);
@@ -267,7 +285,7 @@ tl.set('.orbit-img', { rotation: 0, x: 0, y: 0, scale: 1, opacity: 0, skewX: 0, 
 
 // --- Slide 1: scene6 — drift from left ---
 tl.fromTo('.img-6', {
-  opacity: 0, x: -700, rotation: -12, scale: 0.85
+  opacity: 0, x: -L, rotation: -12, scale: 0.85
 }, {
   opacity: 1, x: 0, rotation: 1.5, scale: 1,
   duration: 1.6,
@@ -304,7 +322,7 @@ tl.to('.img-2', {
 
 // --- Slide 3: scene3 — drop from top (overlaps slide2 exit) ---
 tl.fromTo('.img-3', {
-  opacity: 0, y: -580, rotation: 15, scale: 0.75
+  opacity: 0, y: -L, rotation: 15, scale: 0.75
 }, {
   opacity: 1, y: 0, rotation: -2.5, scale: 1,
   duration: 1.6,
@@ -312,14 +330,14 @@ tl.fromTo('.img-3', {
 }, 28.8);
 
 tl.to('.img-3', {
-  y: -250, opacity: 0, rotation: -10,
+  y: -M, opacity: 0, rotation: -10,
   duration: 0.9,
   ease: 'power2.in'
 }, 31.2);
 
 // --- Slide 4: scene4 — drift from right (overlaps slide3 exit) ---
 tl.fromTo('.img-4', {
-  opacity: 0, x: 700, rotation: 20, scale: 0.85
+  opacity: 0, x: L, rotation: 20, scale: 0.85
 }, {
   opacity: 1, x: 0, rotation: -1.5, scale: 1,
   duration: 1.6,
@@ -342,7 +360,7 @@ tl.fromTo('.img-5', {
 }, 34);
 
 tl.to('.img-5', {
-  x: 450, y: 450, opacity: 0, rotation: 20, scale: 0.5,
+  x: M*1.2, y: M*1.2, opacity: 0, rotation: 20, scale: 0.5,
   duration: 1,
   ease: 'power2.in'
 }, 36.2);
@@ -421,60 +439,29 @@ tl.to('.img-7', {
 }, 40);
 
 // ==========================================
-// YOUTUBE PLAYER
+// AUDIO
 // ==========================================
 
-let ytPlayer;
+const audio = document.getElementById('audio');
 
-function onYouTubeIframeAPIReady() {
-  ytPlayer = new YT.Player('yt-player', {
-    videoId: 't2HBiJpdjlE',
-    playerVars: {
-      autoplay: 0,
-      controls: 0,
-      disablekb: 1,
-      fs: 0,
-      modestbranding: 1,
-      rel: 0
-    },
-    events: {
-      onReady: () => {
-        ytReady = true;
-        if (playQueued) {
-          ytPlayer.playVideo();
-          playQueued = false;
-        }
-      },
-      onStateChange: (e) => {
-        if (e.data === YT.PlayerState.PLAYING) {
-          gsap.ticker.add(syncYT);
-        } else if (e.data === YT.PlayerState.PAUSED) {
-          gsap.ticker.remove(syncYT);
-        } else if (e.data === YT.PlayerState.ENDED) {
-          gsap.ticker.remove(syncYT);
-          tl.progress(1);
-        }
-      }
-    }
-  });
+function startIt(e) {
+  if (started) return;
+  started = true;
+  audio.play();
+  tl.play();
+  gsap.ticker.add(syncAudio);
 }
 
-let ytReady = false;
-let playQueued = false;
-
-function syncYT() {
-  if (ytPlayer && ytPlayer.getCurrentTime) {
-    tl.time(ytPlayer.getCurrentTime());
+function syncAudio() {
+  if (audio && audio.readyState > 0) {
+    tl.time(audio.currentTime);
   }
 }
 
-document.body.addEventListener('click', () => {
-  if (ytReady && ytPlayer && ytPlayer.getPlayerState) {
-    const state = ytPlayer.getPlayerState();
-    if (state !== YT.PlayerState.PLAYING) {
-      ytPlayer.playVideo();
-    }
-  } else {
-    playQueued = true;
-  }
-}, { once: true });
+audio.addEventListener('ended', () => {
+  gsap.ticker.remove(syncAudio);
+  tl.progress(1);
+});
+
+document.addEventListener('click', startIt);
+document.addEventListener('touchstart', startIt);

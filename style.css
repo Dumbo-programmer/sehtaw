@@ -19,6 +19,8 @@ body, html {
   background: linear-gradient(135deg, var(--cream) 0%, var(--pink-100) 30%, var(--peach) 60%, var(--pink-200) 100%);
   font-family: 'Comic Sans MS', 'Segoe Print', cursive;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* ---- Layers ---- */
@@ -39,22 +41,28 @@ body, html {
   position: absolute;
   border-radius: 50%;
   opacity: 0.25;
-  filter: blur(60px);
+  filter: blur(6vmin);
 }
 .blob1 {
-  width: 600px; height: 600px;
+  width: clamp(200px, 55vmin, 700px);
+  height: clamp(200px, 55vmin, 700px);
   background: var(--pink-400);
-  top: -150px; left: -100px;
+  top: -20vmin;
+  left: -12vmin;
 }
 .blob2 {
-  width: 500px; height: 500px;
+  width: clamp(160px, 42vmin, 600px);
+  height: clamp(160px, 42vmin, 600px);
   background: var(--mint);
-  bottom: -100px; right: -80px;
+  bottom: -15vmin;
+  right: -10vmin;
 }
 .blob3 {
-  width: 400px; height: 400px;
+  width: clamp(140px, 34vmin, 500px);
+  height: clamp(140px, 34vmin, 500px);
   background: var(--lavender);
-  top: 40%; left: 30%;
+  top: calc(50% - 17vmin);
+  left: calc(50% - 17vmin);
 }
 
 /* ---- Decorative Elements ---- */
@@ -270,6 +278,52 @@ body, html {
 }
 
 /* ---- Responsive tweaks ---- */
+
+/* Large screens ≥ 1600px — more breathing room */
+@media (min-width: 1600px) {
+  .polaroid {
+    width: 500px;
+    height: 660px;
+    border-width: 18px;
+    border-bottom-width: 84px;
+    box-shadow:
+      0 20px 70px rgba(255,150,180,0.4),
+      0 6px 24px rgba(0,0,0,0.1);
+  }
+  .orbit-img {
+    width: 350px;
+    height: 470px;
+    border-width: 16px;
+    border-bottom-width: 64px;
+    margin-left: -175px;
+    margin-top: -235px;
+  }
+  .caption { font-size: 1.4rem; bottom: -62px; }
+  .sticker { font-size: 2.4rem; }
+  .scribble { font-size: 1.3rem; }
+  .sc-1 { font-size: 1.5rem; }
+  .sc-2 { font-size: 1.7rem; }
+  .sc-5 { font-size: 1.6rem; }
+  .sc-8 { font-size: 2.8rem; }
+  .ring-heart { font-size: 2.2rem; }
+  .heart { font-size: 2rem; }
+  .bunny { font-size: 2.4rem; }
+  .seal { font-size: 2.6rem; }
+  .cloud { font-size: 3.2rem; }
+  .flower { font-size: 2.8rem !important; }
+  .sparkle { font-size: 1.5rem !important; }
+  .moon { font-size: 2.4rem; }
+  .sparkle-burst span { font-size: 2.6rem; }
+  .sparkle-burst { gap: 1rem; }
+  .lyric-line { font-size: 3rem; }
+}
+
+/* Big laptops / small desktops 1300–1599px */
+@media (max-width: 1300px) {
+  .ring-heart { font-size: 1.6rem; }
+  .sparkle-burst span { font-size: 1.8rem; }
+}
+
 @media (max-width: 1100px) {
   .polaroid {
     width: 320px;
@@ -292,26 +346,155 @@ body, html {
   .sc-2 { font-size: 1.1rem; }
   .sc-5 { font-size: 1.1rem; }
   .sc-8 { font-size: 2rem; }
+  .ring-heart { font-size: 1.4rem; }
+  .heart { font-size: 1.5rem; }
+  .bunny { font-size: 1.6rem; }
+  .seal { font-size: 1.8rem; }
+  .cloud { font-size: 2.2rem; }
+  .flower { font-size: 1.8rem !important; }
+  .sparkle { font-size: 1rem !important; }
+  .sparkle-burst span { font-size: 1.6rem; }
 }
-@media (max-width: 600px) {
+
+@media (max-width: 700px) {
   .polaroid {
-    width: 240px;
-    height: 320px;
+    width: 260px;
+    height: 350px;
     border-width: 12px;
-    border-bottom-width: 48px;
+    border-bottom-width: 52px;
   }
   .orbit-img {
-    width: 170px;
-    height: 230px;
+    width: 190px;
+    height: 260px;
     border-width: 10px;
-    border-bottom-width: 38px;
-    margin-left: -85px;
-    margin-top: -115px;
+    border-bottom-width: 40px;
+    margin-left: -95px;
+    margin-top: -130px;
   }
-  .caption { font-size: 0.8rem; bottom: -36px; }
-  .scribble { font-size: 0.75rem; }
-  .sc-1 { font-size: 0.85rem; }
-  .sc-2 { font-size: 0.9rem; }
-  .sc-5 { font-size: 0.9rem; }
-  .sc-8 { font-size: 1.6rem; }
+  .caption { font-size: 0.9rem; bottom: -38px; }
+  .sticker { font-size: 1.3rem; }
+  .scribble { font-size: 0.8rem; }
+  .sc-1 { font-size: 0.9rem; }
+  .sc-2 { font-size: 1rem; }
+  .sc-5 { font-size: 1rem; }
+  .sc-8 { font-size: 1.8rem; }
+  .ring-heart { font-size: 1.2rem; }
+  .heart { font-size: 1.3rem; }
+  .bunny { font-size: 1.4rem; }
+  .seal { font-size: 1.5rem; }
+  .cloud { font-size: 1.8rem; }
+  .flower { font-size: 1.5rem !important; }
+  .sparkle { font-size: 0.85rem !important; }
+  .moon { font-size: 1.5rem; }
+  .sparkle-burst span { font-size: 1.4rem; }
+  .sparkle-burst { gap: 0.6rem; }
+}
+
+@media (max-width: 400px) {
+  .polaroid {
+    width: 200px;
+    height: 270px;
+    border-width: 10px;
+    border-bottom-width: 42px;
+  }
+  .orbit-img {
+    width: 150px;
+    height: 200px;
+    border-width: 8px;
+    border-bottom-width: 34px;
+    margin-left: -75px;
+    margin-top: -100px;
+  }
+  .caption { font-size: 0.75rem; bottom: -32px; }
+  .sticker { font-size: 1.1rem; }
+  .scribble { font-size: 0.7rem; }
+  .sc-1 { font-size: 0.75rem; }
+  .sc-2 { font-size: 0.8rem; }
+  .sc-5 { font-size: 0.8rem; }
+  .sc-8 { font-size: 1.4rem; }
+  .ring-heart { font-size: 1rem; }
+  .heart { font-size: 1.1rem; }
+  .bunny { font-size: 1.2rem; }
+  .seal { font-size: 1.3rem; }
+  .cloud { font-size: 1.5rem; }
+  .flower { font-size: 1.2rem !important; }
+  .sparkle { font-size: 0.75rem !important; }
+  .moon { font-size: 1.3rem; }
+  .sparkle-burst span { font-size: 1.1rem; }
+  .sparkle-burst { gap: 0.4rem; }
+  .lyric-line { font-size: 1.6rem; }
+}
+
+/* Landscape phones — limited height */
+@media (max-height: 500px) and (orientation: landscape) {
+  .polaroid {
+    width: 160px;
+    height: 200px;
+    border-width: 8px;
+    border-bottom-width: 32px;
+  }
+  .orbit-img {
+    width: 120px;
+    height: 150px;
+    border-width: 6px;
+    border-bottom-width: 26px;
+    margin-left: -60px;
+    margin-top: -75px;
+  }
+  .caption { font-size: 0.65rem; bottom: -26px; }
+  .sticker { font-size: 1rem; }
+  .scribble { font-size: 0.65rem; }
+  .sc-1 { font-size: 0.7rem; }
+  .sc-2 { font-size: 0.75rem; }
+  .sc-5 { font-size: 0.75rem; }
+  .sc-8 { font-size: 1.3rem; }
+  .ring-heart { font-size: 0.9rem; }
+  .heart { font-size: 1rem; }
+  .bunny { font-size: 1.1rem; }
+  .seal { font-size: 1.2rem; }
+  .cloud { font-size: 1.4rem; }
+  .flower { font-size: 1.1rem !important; }
+  .sparkle { font-size: 0.7rem !important; }
+  .moon { font-size: 1.2rem; }
+  .sparkle-burst span { font-size: 1rem; }
+  .sparkle-burst { gap: 0.35rem; }
+  .lyric-line { font-size: 1.4rem; }
+  .deco { display: none; }
+  .scribble { display: none; }
+}
+
+/* Very small phones ≤ 360px */
+@media (max-width: 360px) {
+  .polaroid {
+    width: 160px;
+    height: 220px;
+    border-width: 8px;
+    border-bottom-width: 36px;
+  }
+  .orbit-img {
+    width: 120px;
+    height: 160px;
+    border-width: 6px;
+    border-bottom-width: 28px;
+    margin-left: -60px;
+    margin-top: -80px;
+  }
+  .caption { font-size: 0.65rem; bottom: -28px; }
+  .sticker { font-size: 0.9rem; }
+  .scribble { font-size: 0.6rem; }
+  .sc-1 { font-size: 0.65rem; }
+  .sc-2 { font-size: 0.7rem; }
+  .sc-5 { font-size: 0.7rem; }
+  .sc-8 { font-size: 1.2rem; }
+  .ring-heart { font-size: 0.85rem; }
+  .heart { font-size: 0.9rem; }
+  .bunny { font-size: 1rem; }
+  .seal { font-size: 1.1rem; }
+  .cloud { font-size: 1.2rem; }
+  .flower { font-size: 1rem !important; }
+  .sparkle { font-size: 0.65rem !important; }
+  .moon { font-size: 1.1rem; }
+  .sparkle-burst span { font-size: 0.9rem; }
+  .sparkle-burst { gap: 0.3rem; }
+  .lyric-line { font-size: 1.3rem; }
 }
