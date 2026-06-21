@@ -226,13 +226,15 @@ tl.fromTo('.decoration', {
 tl.to('.orbit-container', {
   rotation: 360,
   duration: 11.5,
-  ease: 'sine.inOut'
+  ease: 'sine.inOut',
+  force3D: true
 }, 8.5);
 
 tl.to('.orbit-img', {
   rotation: -360,
   duration: 11.5,
-  ease: 'sine.inOut'
+  ease: 'sine.inOut',
+  force3D: true
 }, 8.5);
 
 // Petals drift away — starts as rotation winds down
@@ -395,14 +397,16 @@ tl.to('.heart-ring', {
   rotation: '+=360',
   duration: 10,
   ease: 'none',
-  repeat: -1
+  repeat: -1,
+  force3D: true
 }, 39);
 
 tl.to('.ring-heart', {
   rotation: '-=360',
   duration: 10,
   ease: 'none',
-  repeat: -1
+  repeat: -1,
+  force3D: true
 }, 39);
 
 tl.to('.ring-heart', {
@@ -448,7 +452,6 @@ function startIt(e) {
   if (started) return;
   started = true;
   audio.play();
-  tl.play();
   gsap.ticker.add(syncAudio);
 }
 

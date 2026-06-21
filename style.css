@@ -192,6 +192,7 @@ body, html {
   left: 50%;
   width: 0;
   height: 0;
+  will-change: transform;
 }
 
 .orbit-img {
@@ -203,6 +204,7 @@ body, html {
   border-radius: 10px;
   margin-left: -150px;
   margin-top: -200px;
+  will-change: transform;
 }
 
 /* decoration state managed via GSAP */
@@ -239,6 +241,7 @@ body, html {
   width: 0;
   height: 0;
   opacity: 0;
+  will-change: transform;
 }
 .ring-heart {
   position: absolute;
